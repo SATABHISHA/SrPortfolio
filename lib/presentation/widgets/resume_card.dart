@@ -18,10 +18,10 @@ class ResumeCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Profile Animation
-            Center(
+            /*Center(
               child: Lottie.asset("assets/animations/profile.json",
                   height: 120, width: 120),
-            ),
+            ),*/
             const SizedBox(height: 10),
 
             // Name & Contact
@@ -46,7 +46,7 @@ class ResumeCard extends StatelessWidget {
 
             // Experience
             Text("Experience:", style: Theme.of(context).textTheme.headlineMedium),
-            Column(
+            /*Column(
               children: resume.experience
                   .map(
                     (exp) => ListTile(
@@ -56,6 +56,43 @@ class ResumeCard extends StatelessWidget {
                 ),
               )
                   .toList(),
+            ),*/
+
+            Column(
+              children: resume.experience.map((exp) {
+                return Card(
+                  margin: const EdgeInsets.symmetric(vertical: 8),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  child: ExpansionTile(
+                    title: Text(exp.company,
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text("${exp.role} (${exp.duration})"),
+                    children: exp.projects.isNotEmpty
+                        ? exp.projects.map((project) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "📌 ${project.name}",
+                              style: const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(project.description,
+                                style: const TextStyle(fontSize: 14, color: Colors.black54)),
+                            const SizedBox(height: 6),
+                          ],
+                        ),
+                      );
+                    }).toList()
+                        : [const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text("No projects available.", style: TextStyle(color: Colors.grey)),
+                    )],
+                  ),
+                );
+              }).toList(),
             ),
           ],
         ),

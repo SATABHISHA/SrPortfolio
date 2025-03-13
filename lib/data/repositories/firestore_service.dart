@@ -7,7 +7,8 @@ class FirestoreService {
   /// Fetch resume data from Firestore
   static Future<ResumeModel?> getResumeData() async {
     try {
-      DocumentSnapshot doc = await _firestore.collection('resume').doc('LjbzZQsRSR9XjM6qtdU').get();
+      DocumentSnapshot doc = await _firestore.collection('resume').doc('LjbzZQsRSRQXjM68qtdU').get();
+      print("🔥 Firestore Raw Document: ${doc.data()}");
 
       if (doc.exists) {
         return ResumeModel.fromJson(doc.data() as Map<String, dynamic>);

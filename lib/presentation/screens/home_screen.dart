@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/models/resume_model.dart';
 import '../../data/repositories/firestore_service.dart';
+import '../../logic/bloc/theme_bloc.dart';
 import '../widgets/resume_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -9,7 +11,16 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("My Resume")),
+      appBar: AppBar(title: const Text("My Resume"),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.brightness_6),
+          onPressed: () {
+            context.read<ThemeBloc>().add(ThemeEvent.toggle);
+          },
+        ),
+      ],),
+
       body: FutureBuilder<ResumeModel?>(
         future: FirestoreService.getResumeData(),
         builder: (context, snapshot) {
