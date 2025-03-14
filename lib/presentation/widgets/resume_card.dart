@@ -17,11 +17,36 @@ class ResumeCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Profile Animation
-            /*Center(
-              child: Lottie.asset("assets/animations/profile.json",
-                  height: 120, width: 120),
-            ),*/
+            // Profile Image + Lottie Animation (Combined)
+            Center(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  // Lottie Animation (Background effect)
+                 /* Lottie.asset(
+                    "assets/animations/profile.json",
+                    height: 140,
+                    width: 140,
+                  ),*/
+
+                  // Profile Image (Overlapping Lottie animation)
+                  CircleAvatar(
+                    radius: 75,
+                    backgroundColor: Color.fromRGBO(77, 227, 169, 1.0), // Optional background color
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.asset(
+                        "images/sr.png",
+                        height: 140,
+                        width: 140,
+                        fit: BoxFit.fill, // Keep aspect ratio
+                      ),
+                    ),
+                  ),
+
+                ],
+              ),
+            ),
             const SizedBox(height: 10),
 
             // Name & Contact

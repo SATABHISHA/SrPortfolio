@@ -45,6 +45,7 @@ class ResumeModel {
   String name;
   String email;
   String contact;
+  String profileImage;
   List<Experience> experience;
   List<String> skills;
 
@@ -53,6 +54,7 @@ class ResumeModel {
       name: json["name"] ?? "",
       email: json["email"] ?? "",
       contact: json["contact"] ?? "",
+      profileImage: json["profileImage"] ?? "",
       experience: (json["experience"] as List<dynamic>?)
           ?.map((exp) => Experience.fromJson(exp))
           .toList() ??
@@ -67,5 +69,6 @@ class ResumeModel {
     required this.contact,
     required this.experience,
     required this.skills,
+    required this.profileImage,
   });
 }
