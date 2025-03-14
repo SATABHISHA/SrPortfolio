@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/models/resume_model.dart';
 import '../../data/repositories/firestore_service.dart';
 import '../../logic/bloc/theme_bloc.dart';
+import '../../utils/pdf_generator.dart';
 import '../widgets/resume_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,15 +12,17 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("My Resume"),
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.brightness_6),
-          onPressed: () {
-            context.read<ThemeBloc>().add(ThemeEvent.toggle);
-          },
-        ),
-      ],),
+      appBar: AppBar(
+        title: const Text("My Resume"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.brightness_6),
+            onPressed: () {
+              context.read<ThemeBloc>().add(ThemeEvent.toggle);
+            },
+          ),
+        ],
+      ),
 
       body: FutureBuilder<ResumeModel?>(
         future: FirestoreService.getResumeData(),
@@ -32,9 +35,34 @@ class HomePage extends StatelessWidget {
             return const Center(child: Text("No Resume Found."));
           }
 
+          ResumeModel resume = snapshot.data!;
+
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
-            child: ResumeCard(resume: snapshot.data!),
+            child: Column(
+              children: [
+                ResumeCard(resume: resume),
+                const SizedBox(height: 20),
+
+                // PDF Download Button
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.download),
+                  label: const Text("Download PDF"),
+                  onPressed: () async {
+                    final file = await generateResumePDF(resume);
+                    if (file != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("PDF saved at ${file.path}")),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("PDF downloaded successfully.")),
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
           );
         },
       ),

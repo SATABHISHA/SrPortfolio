@@ -16,7 +16,8 @@ class ResumeScreen extends StatelessWidget {
               final resume = (context.read<ResumeBloc>().state as ResumeLoaded).resume;
               final file = await generateResumePDF(resume);
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("PDF saved at ${file.path}")),
+                // SnackBar(content: Text("PDF saved at ${file.path}")),
+                SnackBar(content: Text("PDF saved")),
               );
             },
           ),
