@@ -93,24 +93,36 @@ class ResumeCard extends StatelessWidget {
                         style: const TextStyle(fontWeight: FontWeight.bold)),
                     subtitle: Text("${exp.role} (${exp.duration})"),
                     children: exp.projects.isNotEmpty
-                        ? exp.projects.map((project) {
+                        ? [const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      child: Text('Projects Undertaken:', style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                      ...exp.projects.map((project) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "📌 ${project.name}",
-                              style: const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(project.description,
-                                style: const TextStyle(fontSize: 14, color: Colors.black54)),
-                            const SizedBox(height: 6),
-                          ],
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "📌 ${project.name}",
+                                style: const TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                project.description,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                            ],
+                          ),
                         ),
                       );
-                    }).toList()
+                    }).toList() ]
                         : [const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text("No projects available.", style: TextStyle(color: Colors.grey)),
