@@ -49,6 +49,14 @@ class ResumeCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
 
+            // ✅ Summary Section (NEW)
+            Text("Summary:", style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              resume.summary.isNotEmpty ? resume.summary : "No summary available.",
+              style: const TextStyle(fontSize: 14),
+            ),
+            const Divider(),
+
             // Name & Contact
             Text(resume.name,
                 style: const TextStyle(
