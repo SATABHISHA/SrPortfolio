@@ -30,7 +30,7 @@ class ResumeCard extends StatelessWidget {
                   ),*/
 
                   // Profile Image (Overlapping Lottie animation)
-                  CircleAvatar(
+                  /*CircleAvatar(
                     radius: 75,
                     backgroundColor: Color.fromRGBO(77, 227, 169, 1.0), // Optional background color
                     child: ClipRRect(
@@ -42,20 +42,12 @@ class ResumeCard extends StatelessWidget {
                         fit: BoxFit.fill, // Keep aspect ratio
                       ),
                     ),
-                  ),
+                  ),*/
 
                 ],
               ),
             ),
             const SizedBox(height: 10),
-
-            // ✅ Summary Section (NEW)
-            Text("Summary:", style: Theme.of(context).textTheme.headlineMedium),
-            Text(
-              resume.summary.isNotEmpty ? resume.summary : "No summary available.",
-              style: const TextStyle(fontSize: 14),
-            ),
-            const Divider(),
 
             // Name & Contact
             Text(resume.name,
@@ -66,6 +58,16 @@ class ResumeCard extends StatelessWidget {
             Text("📞 ${resume.contact}",
                 style: const TextStyle(fontSize: 16, color: Colors.grey)),
             const Divider(),
+
+
+            // ✅ Summary Section (NEW)
+            Text("Summary:", style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              resume.summary.isNotEmpty ? resume.summary : "No summary available.",
+              style: const TextStyle(fontSize: 14),
+            ),
+            const Divider(),
+
 
             // Skills
             Text("Skills:", style: Theme.of(context).textTheme.headlineMedium),
@@ -139,6 +141,25 @@ class ResumeCard extends StatelessWidget {
                 );
               }).toList(),
             ),
+
+
+            // ✅ Education Section
+            Text("Education:", style: Theme.of(context).textTheme.headlineMedium),
+            ...resume.education.map((edu) => Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    edu.degree,
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  Text(edu.college, style: const TextStyle(fontSize: 14)),
+                  Text("📅 ${edu.year}", style: const TextStyle(fontSize: 14, color: Colors.grey)),
+                ],
+              ),
+            )),
+            const Divider(),
           ],
         ),
       ),

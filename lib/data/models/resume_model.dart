@@ -41,6 +41,27 @@ class Experience {
   }
 }
 
+class Education {
+  String college;
+  String degree;
+  String year;
+
+  Education({
+    required this.college,
+    required this.degree,
+    required this.year,
+  });
+
+  factory Education.fromJson(Map<String, dynamic> json) {
+    return Education(
+      college: json["college"] ?? "",
+      degree: json["degree"] ?? "",
+      year: json["year"] ?? "",
+    );
+  }
+}
+
+
 class ResumeModel {
   String name;
   String email;
@@ -48,6 +69,7 @@ class ResumeModel {
   String profileImage;
   String summary;
   List<Experience> experience;
+  List<Education> education;
   List<String> skills;
 
   factory ResumeModel.fromJson(Map<String, dynamic> json) {
@@ -59,6 +81,10 @@ class ResumeModel {
       profileImage: json["profileImage"] ?? "",
       experience: (json["experience"] as List<dynamic>?)
           ?.map((exp) => Experience.fromJson(exp))
+          .toList() ??
+          [],
+      education: (json["education"] as List<dynamic>?)
+          ?.map((edu) => Education.fromJson(edu))
           .toList() ??
           [],
       skills: List<String>.from(json["skills"] ?? []),
@@ -73,5 +99,6 @@ class ResumeModel {
     required this.skills,
     required this.profileImage,
     required this.summary,
+    required this.education,
   });
 }
