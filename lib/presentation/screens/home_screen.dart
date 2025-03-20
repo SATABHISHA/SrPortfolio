@@ -18,20 +18,31 @@ class HomePage extends StatelessWidget {
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF89CFF0), Color(0xFF6A5ACD)], // Light Blue to Soft Purple
+              // colors: [Color(0xFF89CFF0), Color(0xFF6A5ACD)], // Light Blue to Soft Purple
+              colors: [Color(0xFFD5ECC1), Color(0xFF8FC2EC)], // Light Blue to Soft Purple
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
         ),
-        title: Text(
-          "Dream Big, Work Smart",
-          style: GoogleFonts.lora(  // Lora is elegant & soothing
-            fontSize: 22,
-            fontWeight: FontWeight.w600, // Softer than bold
-            color: Colors.white,
-            letterSpacing: 1.2, // Slight spacing for elegance
-          ),
+        title: Row(
+          children: [
+            Image.asset(
+              "images/logoportfolio.png",  // 🔹 Use your own logo image here
+              height: 40,  // Adjust based on your logo size
+              width: 40,
+            ),
+            const SizedBox(width: 10),
+            Text(
+              "Dream Big, Work Smart",
+              style: GoogleFonts.lora(  // Lora is elegant & soothing
+                fontSize: 22,
+                fontWeight: FontWeight.w600, // Softer than bold
+                color: Colors.white,
+                letterSpacing: 1.2, // Slight spacing for elegance
+              ),
+            ),
+          ],
         ),
         actions: [
           IconButton(
@@ -43,47 +54,59 @@ class HomePage extends StatelessWidget {
         ],
       ),
 
-      body: FutureBuilder<ResumeModel?>(
-        future: FirestoreService.getResumeData(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFFB5E48C), // Soft lime green
+              Color(0xFF76C893), // Teal-green for depth
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: FutureBuilder<ResumeModel?>(
+          future: FirestoreService.getResumeData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-          if (!snapshot.hasData || snapshot.data == null) {
-            return const Center(child: Text("No Resume Found."));
-          }
+            if (!snapshot.hasData || snapshot.data == null) {
+              return const Center(child: Text("No Resume Found."));
+            }
 
-          ResumeModel resume = snapshot.data!;
+            ResumeModel resume = snapshot.data!;
 
-          return SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                ResumeCard(resume: resume),
-                const SizedBox(height: 20),
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  ResumeCard(resume: resume),
+                  const SizedBox(height: 20),
 
-                // PDF Download Button
-                ElevatedButton.icon(
-                  icon: const Icon(Icons.download),
-                  label: const Text("Download PDF"),
-                  onPressed: () async {
-                    final file = await generateResumePDF(resume);
-                    if (file != null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("PDF saved at ${file.path}")),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("PDF downloaded successfully.")),
-                      );
-                    }
-                  },
-                ),
-              ],
-            ),
-          );
-        },
+                  // PDF Download Button
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.download),
+                    label: const Text("Download PDF"),
+                    onPressed: () async {
+                      final file = await generateResumePDF(resume);
+                      if (file != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("PDF saved at ${file.path}")),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("PDF downloaded successfully.")),
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

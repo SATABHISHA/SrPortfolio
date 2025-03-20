@@ -56,26 +56,32 @@ class ResumeCard extends StatelessWidget {
                     fontSize: 22, fontWeight: FontWeight.bold)),
             Row(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(Icons.email, color: Colors.deepOrange), // ✅ Use Icon directly
-                        const SizedBox(width: 8),
-                        Text(resume.email,
-                            style: const TextStyle(fontSize: 16, color: Colors.grey)),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.phone, color: Colors.green), // ✅ Use Icon directly
-                        const SizedBox(width: 8),
-                        Text(" ${resume.contact}",
-                            style: const TextStyle(fontSize: 16, color: Colors.grey)),
-                      ],
-                    ),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.email, color: Colors.deepOrange), // ✅ Use Icon directly
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(resume.email,
+                                style: const TextStyle(fontSize: 16, color: Colors.grey)),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.phone, color: Colors.green), // ✅ Use Icon directly
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(" ${resume.contact}",
+                                style: const TextStyle(fontSize: 16, color: Colors.grey)),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
 
                 SizedBox(width: 50,),
