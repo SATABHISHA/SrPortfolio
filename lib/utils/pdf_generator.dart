@@ -11,7 +11,7 @@ import '../data/models/resume_model.dart';
 Future<File?> generateResumePDF(ResumeModel resume) async {
   final pdf = pw.Document();
   // ✅ Load Material Icons for PDF
-  final ttf = pw.Font.ttf(await rootBundle.load("fonts/MaterialIcons-Regular.ttf"));
+  // final ttf = pw.Font.ttf(await rootBundle.load("fonts/MaterialIcons-Regular.ttf"));
 
   pdf.addPage(
     pw.MultiPage(
@@ -30,17 +30,18 @@ Future<File?> generateResumePDF(ResumeModel resume) async {
                 pw.Row(
                   children: [
                     // pw.Icon(pw.IconData(0xe0be), size: 18, color: PdfColors.deepOrange), // Email Icon
-                    pw.Text("📧", style: pw.TextStyle(fontSize: 18, color: PdfColors.deepOrange)), // Email Icon
+                    pw.Text("Email:", style: pw.TextStyle(fontSize: 18, color: PdfColors.deepOrange)), // Email Icon
                     pw.SizedBox(width: 8),
-                    pw.Text(resume.email, style: pw.TextStyle(fontSize: 16, color: PdfColors.grey)),
+                    pw.Text(resume.email, style: pw.TextStyle(fontSize: 16, color: PdfColors.grey700)),
                   ],
                 ),
                 pw.SizedBox(height: 5),
                 pw.Row(
                   children: [
-                    pw.Icon(pw.IconData(0xe0b0), size: 18, color: PdfColors.green), // Phone Icon
+                    // pw.Icon(pw.IconData(0xe0b0), size: 18, color: PdfColors.green), // Phone Icon
+                    pw.Text("Phone:", style: pw.TextStyle(fontSize: 18, color: PdfColors.green)), // Email Icon
                     pw.SizedBox(width: 8),
-                    pw.Text(resume.contact, style: pw.TextStyle(fontSize: 16, color: PdfColors.grey)),
+                    pw.Text(resume.contact, style: pw.TextStyle(fontSize: 16, color: PdfColors.grey700)),
                   ],
                 ),
               ],
@@ -54,7 +55,8 @@ Future<File?> generateResumePDF(ResumeModel resume) async {
               children: [
                 pw.Row(
                   children: [
-                    pw.Icon(pw.IconData(0xe30d), size: 18, color: PdfColors.blue), // Work Icon
+                    // pw.Icon(pw.IconData(0xe30d), size: 18, color: PdfColors.blue), // Work Icon
+                    pw.Text("Portfolio:", style: pw.TextStyle(fontSize: 18, color: PdfColors.orange)),
                     pw.SizedBox(width: 8),
                     pw.Text(resume.portfolioLink, style: pw.TextStyle(fontSize: 16, color: PdfColors.blue)),
                   ],
@@ -62,7 +64,8 @@ Future<File?> generateResumePDF(ResumeModel resume) async {
                 pw.SizedBox(height: 5),
                 pw.Row(
                   children: [
-                    pw.Icon(pw.IconData(0xe86f), size: 18, color: PdfColors.teal), // GitHub Icon
+                    // pw.Icon(pw.IconData(0xe86f), size: 18, color: PdfColors.teal), // GitHub Icon
+                    pw.Text("Git:", style: pw.TextStyle(fontSize: 18, color: PdfColors.orange)),
                     pw.SizedBox(width: 8),
                     pw.Text(resume.githubLink, style: pw.TextStyle(fontSize: 16, color: PdfColors.blue)),
                   ],
@@ -105,7 +108,7 @@ Future<File?> generateResumePDF(ResumeModel resume) async {
             return pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
-                pw.Text("• ${exp.company}",
+                pw.Text("${exp.company}",
                     style: pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold, color: PdfColors.blue)),
                 pw.Text("${exp.role} (${exp.duration})",
                     style: pw.TextStyle(fontSize: 14, color: PdfColors.grey800)),
@@ -128,8 +131,8 @@ Future<File?> generateResumePDF(ResumeModel resume) async {
                           children: [
                             pw.Row(
                               children: [
-                                pw.Icon(pw.IconData(0xe06c), size: 14, color: PdfColors.green), // Pin icon
-                                pw.SizedBox(width: 5),
+                                // pw.Icon(pw.IconData(0xe06c), size: 14, color: PdfColors.green), // Pin icon
+                                // pw.SizedBox(width: 5),
                                 pw.Text(project.name,
                                     style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 14)),
                               ],
@@ -164,9 +167,9 @@ Future<File?> generateResumePDF(ResumeModel resume) async {
                 pw.Text(edu.college, style: const pw.TextStyle(fontSize: 14)),
                 pw.Row(
                   children: [
-                    pw.Icon(pw.IconData(0xe0e1), size: 14, color: PdfColors.blueAccent),
-                    pw.SizedBox(width: 5),
-                    pw.Text(edu.year, style: const pw.TextStyle(fontSize: 14, color: PdfColors.grey)),
+                    // pw.Icon(pw.IconData(0xe0e1), size: 14, color: PdfColors.blueAccent),
+                    // pw.SizedBox(width: 5),
+                    pw.Text(edu.year, style: const pw.TextStyle(fontSize: 14, color: PdfColors.grey700)),
                   ],
                 ),
                 pw.SizedBox(height: 8),
