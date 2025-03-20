@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../data/models/resume_model.dart';
 import '../../data/repositories/firestore_service.dart';
 import '../../logic/bloc/theme_bloc.dart';
@@ -13,7 +14,25 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My Resume"),
+        backgroundColor: Colors.transparent, // Transparent to show gradient
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF89CFF0), Color(0xFF6A5ACD)], // Light Blue to Soft Purple
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        title: Text(
+          "Dream Big, Work Smart",
+          style: GoogleFonts.lora(  // Lora is elegant & soothing
+            fontSize: 22,
+            fontWeight: FontWeight.w600, // Softer than bold
+            color: Colors.white,
+            letterSpacing: 1.2, // Slight spacing for elegance
+          ),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.brightness_6),

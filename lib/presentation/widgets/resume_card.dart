@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../data/models/resume_model.dart';
 
 class ResumeCard extends StatelessWidget {
@@ -53,10 +54,95 @@ class ResumeCard extends StatelessWidget {
             Text(resume.name,
                 style: const TextStyle(
                     fontSize: 22, fontWeight: FontWeight.bold)),
-            Text("📧 ${resume.email}",
-                style: const TextStyle(fontSize: 16, color: Colors.grey)),
-            Text("📞 ${resume.contact}",
-                style: const TextStyle(fontSize: 16, color: Colors.grey)),
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.email, color: Colors.deepOrange), // ✅ Use Icon directly
+                        const SizedBox(width: 8),
+                        Text(resume.email,
+                            style: const TextStyle(fontSize: 16, color: Colors.grey)),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Icon(Icons.phone, color: Colors.green), // ✅ Use Icon directly
+                        const SizedBox(width: 8),
+                        Text(" ${resume.contact}",
+                            style: const TextStyle(fontSize: 16, color: Colors.grey)),
+                      ],
+                    ),
+                  ],
+                ),
+
+                SizedBox(width: 50,),
+                //---Profile links
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.work, size: 30, color: Colors.blue) , // ✅ Use Icon directly
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: MouseRegion(
+                              cursor: SystemMouseCursors.click, // Change cursor on hover
+                              child: GestureDetector(
+                                onTap: () async {
+                                  final Uri url = Uri.parse(resume.portfolioLink);
+                                  if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+                                    throw Exception("Could not launch $url");
+                                  }
+                                },
+                                child: Text(
+                                  resume.portfolioLink,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.blue, // Make it look like a link
+                                    decoration: TextDecoration.none, // Remove underline
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.code, size: 30, color: Color(0xFF008080)), // ✅ Using Icons.code
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: MouseRegion(
+                              cursor: SystemMouseCursors.click, // Changes cursor on hover
+                              child: GestureDetector(
+                                onTap: () async {
+                                  final Uri url = Uri.parse(resume.githubLink);
+                                  if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+                                    throw Exception("Could not launch $url");
+                                  }
+                                },
+                                child: Text(
+                                  resume.githubLink,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.blue,
+                                    decoration: TextDecoration.none, // ❌ Remove underline
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
             const Divider(),
 
 
@@ -115,9 +201,15 @@ class ResumeCard extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "📌 ${project.name}",
-                                style: const TextStyle(fontWeight: FontWeight.bold),
+                              Row(
+                                children: [
+                                  const Icon(Icons.format_list_bulleted_outlined, size: 18, color: Colors.greenAccent), // Pin icon
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    "📌 ${project.name}",
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               ),
                               const SizedBox(height: 4),
                               Text(
@@ -155,7 +247,13 @@ class ResumeCard extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   Text(edu.college, style: const TextStyle(fontSize: 14)),
-                  Text("📅 ${edu.year}", style: const TextStyle(fontSize: 14, color: Colors.grey)),
+                  Row(
+                    children: [
+                      const Icon(Icons.calendar_month_outlined, color: Colors.blueAccent), // ✅ Use Icon directly
+                      const SizedBox(width: 8),
+                      Text("${edu.year}", style: const TextStyle(fontSize: 14, color: Colors.grey)),
+                    ],
+                  ),
                 ],
               ),
             )),

@@ -68,6 +68,8 @@ class ResumeModel {
   String contact;
   String profileImage;
   String summary;
+  String portfolioLink;
+  String githubLink;
   List<Experience> experience;
   List<Education> education;
   List<String> skills;
@@ -78,6 +80,8 @@ class ResumeModel {
       email: json["email"] ?? "",
       contact: json["contact"] ?? "",
       summary: json["summary"] ?? "",
+      portfolioLink: json["portfolioLink"] ?? "",
+      githubLink: json["githubLink"] ?? "",
       profileImage: json["profileImage"] ?? "",
       experience: (json["experience"] as List<dynamic>?)
           ?.map((exp) => Experience.fromJson(exp))
@@ -100,5 +104,7 @@ class ResumeModel {
     required this.profileImage,
     required this.summary,
     required this.education,
+    required this.portfolioLink,
+    required this.githubLink,
   });
 }
